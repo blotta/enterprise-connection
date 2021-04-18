@@ -115,8 +115,6 @@ class Trilho:
             if (maximo > 0):
                 self._transportes.maxsize = maximo
 
-        self.conectores = []
-
     def __repr__(self):
         if self.e_fila:
             return f"[{ ' '.join([str(t) for t in list(self._transportes.queue)]) }]"
@@ -192,8 +190,7 @@ class Patio(Local):
         self.trilho_saida = Trilho()
         self.conector_saida_linha = None
 
-        self.conectores_pilhas = []
-        # self.conectores = [Conector() for i in range(conectores_n)]
+        self.conectores = [Conector() for i in range(conectores_n)]
     def __repr__(self):
         return f"Patio {self.nome:<20} -- trihos: {self.trilhos} -- entrada: {self.trilho_entrada}" #", {self.saida_q}, {self.conectores}"
 
@@ -238,8 +235,7 @@ class Simulacao:
 
         # Patios
         self.patios = [Patio(**p) for p in config['patios']]
-        self.p(self.patios)
-        # self.locais = [Patio(**p) for p in config['patios']]
+        # self.p(self.patios)
 
         # Linhas
         self.linhas = []
@@ -264,9 +260,21 @@ class Simulacao:
                 agendamento = Agendamento(l['patio'], horario)
                 linha.trilho.add_transporte(Transporte(tipo="C", agendamento=agendamento))
             self.linhas.append(linha)
-            # self.locais.append(linha)
-        self.p(self.linhas)
-        # self.p(self.locais)
+        # self.p(self.linhas)
+
+        self._print_estado()
+    
+    def _print_estado(self):
+        self.log("Estado")
+
+        print("\nPatios")
+        for p in self.patios:
+            print(p)
+
+        print("\nLinhas")
+        for l in self.linhas:
+            print(l)
+
     
     def log(self, *msg):
         p = "[" + self.horario_atual.strftime("%H:%M:%S") +"]"
@@ -280,6 +288,7 @@ class Simulacao:
                 self.running = False
             else:
                 self.horario_atual += timedelta(seconds=self.intervalo_simulacao_segundos)
+        self._print_estado()
     
     def tick(self):
         self.log("tick")
@@ -291,7 +300,9 @@ class Simulacao:
                 for transporte in transferir:
                     idx = linha.trilho.transportes().index(transporte)
                     self.log(f"Transferindo transporte. tipo='{transporte.tipo}' de='{linha.nome}' para='{patio.nome}' agendamento='{transporte.agendamento}'")
+                    # Isso funciona pois sabemos que a linha não é uma pilha ou fila
                     linha.conector_linha_patioentrada.transferir(idx)
+    
 
 if __name__ == "__main__":
     sim = Simulacao(config)

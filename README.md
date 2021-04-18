@@ -1,27 +1,42 @@
 # Enterprise Connection
 
-CPTM
+## Organização e Entidades
 
-Tipos de Transporte
-- Trens
-- Veículos de Manutenção
+Local: Destino que um transporte pode ter.
+* `nome`: Nome do local (deve ser único)
 
-Transporte
-- Tipo
-- Local Atual
-- Horários
+Agendamento: Agrupamento de um Local e horario
+* `local`: Local de destino
+* `horario`: Horário planejado
 
-Pátio
-- Transportes
-- Fila(s) de entrada
-- Fila(s) de saída
-- Linha(s) de acesso
+Transporte: Representa um trem ou veículo de manutenção.
+* `tipo` (`C`): C (comercial) ou M (manutenção)
+* `agendagemento` (`None`): Próximo local e horario agendado
 
-Linha
-- Transporte Ocupando
-- Pátio
-- Linhas (lista ligada)
-- solicitações de acesso
+Trilho: Uma fila (padrão), pilha ou lista de transportes
+* `maximo` (`-1`): Número máximo de transportes que cabem no trilho
+* `sem_saída` (`False`): Torna fila em pilha (Last In First Out)
+* `e_fila` (`True`): indica se é uma fila (queue) ou lista. Se for lista, os valores de `máximo` e `sem_saida` são ignorados
+
+Conector: O único jeito de transferir um transporte de um trilho para outro
+* `trilho_from`: triho de origem
+* `trilho_to`: triho de destino
+
+Patio (Local): Um conjunto de trilhos
+* `nome`: Nome do Local
+* `trilho_max`: Máximo de transportes que cada pilha acomoda
+* `conectores_n`: Número de conectores que estão disponíveis para gerenciar as pilhas
+* `trilhos`: uma ou mais pilhas que acomodam transportes e devem ser gerenciadas
+* `trilho_entrada`: Fila de entrada que recebe transportes originando da Linha conectada
+* `trilho_saida`: Fila de saída que possibilita os transportes de um pátio de sairem para a Linha conectada
+
+Linha (Local): Representa os trilhos externos ao pátio associado
+* `patio_dest`: O pátio de destino que os tranportes daquela linha utilizam
+* `trilho`: Lista contendo os transportes
+
+Simulação: Executa a lógica e relacionamento entre as entidades
+* A simulação acontece a cada intervalo de tempo especificado na configuração em `intervalo_simulacao_segundos`
+* Ao chegar no horário de termino de manutenção, a simulação é encerrada
 
 ## Config
 
@@ -103,4 +118,10 @@ config = {
         },
     ],
 }
+```
+
+## Executando
+
+```python
+python main.py
 ```
