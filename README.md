@@ -11,7 +11,7 @@ Agendamento: Agrupamento de um Local e horario
 
 Transporte: Representa um trem ou veículo de manutenção.
 * `tipo` (`C`): C (comercial) ou M (manutenção)
-* `agendagemento` (`None`): Próximo local e horario agendado
+* `agendamento` (`None`): Próximo local e horario agendado
 
 Trilho: Uma fila (padrão), pilha ou lista de transportes
 * `maximo` (`-1`): Número máximo de transportes que cabem no trilho
