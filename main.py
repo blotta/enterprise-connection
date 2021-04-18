@@ -78,15 +78,6 @@ config = {
             "patio": "Calmon Viana"
         },
     ],
-
-    # Conexões entre o Locais
-    "conexoes": [
-        ("7+10", "Lapa"),
-        ("8+9", "Altino"),
-        ("11+12+13", "Calmon Viana"),
-        ("7+10", "11+12+13"),
-        ("7+10", "8+9"),
-    ]
 }
 
 
@@ -296,10 +287,11 @@ class Simulacao:
             linhas = [l for l in self.linhas if l.patio_dest.nome == patio.nome]
             # Todos os trens programados para chegar no local ate esse horario
             for linha in linhas:
-                for idx, transporte in enumerate(linha.trilho.transportes()):
-                    if transporte.agendamento.local == patio.nome and transporte.agendamento.horario <= self.horario_atual:
-                        self.log(f"Transferindo transporte. tipo='{transporte.tipo}' de='{linha.nome}' para='{patio.nome}' agendamento='{transporte.agendamento}'")
-                        linha.conector_linha_patioentrada.transferir(idx)
+                transferir = [t for t in linha.trilho.transportes() if t.agendamento.local == patio.nome and t.agendamento.horario <= self.horario_atual]
+                for transporte in transferir:
+                    idx = linha.trilho.transportes().index(transporte)
+                    self.log(f"Transferindo transporte. tipo='{transporte.tipo}' de='{linha.nome}' para='{patio.nome}' agendamento='{transporte.agendamento}'")
+                    linha.conector_linha_patioentrada.transferir(idx)
 
 if __name__ == "__main__":
     sim = Simulacao(config)

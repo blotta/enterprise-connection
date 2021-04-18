@@ -27,41 +27,80 @@ Linha
 
 Exemplo de configuração
 
-```yaml
-Locais:
-- nome: Lapa
-  tipo: patio
-  trens: 0
-- nome: Altino
-  tipo: patio
-  trens: 0
-- nome: Calmon Viana
-  tipo: patio
-  trens: 0
-- nome: "7"
-  tipo: linha
-  trens: 26
-- nome: "10"
-  tipo: linha
-  trens: 26
-- nome: "8"
-  tipo: linha
-  trens: 26
-- nome: "9"
-  tipo: linha
-  trens: 26
-- nome: "11"
-  tipo: linha
-  trens: 26
-- nome: "12"
-  tipo: linha
-  trens: 26
+```python
+config = {
+    # Horário que os trens comerciais começam a voltar aos patios
+    "horario_termino_comercial": "00:00",
 
-Conexoes:
-- "7-Lapa"
-- "10-Lapa"
-- "8-Altino"
-- "9-Altino"
-- "11-Calmon Viana"
-- "12-Calmon Viana"
+    # Tempo a partir do termino comercial que os veiculos de manutenção podem sair dos pátios
+    "tempo_inicio_manutencao": "01:00",
+
+    # Tempo a partir do termino comercial que os veiculos de manutenção devem estar de volta aos patios
+    "tempo_termino_manutencao": "03:30",
+
+    # # Horário que os trens comerciais iniciam a operação
+    # "horario_inicio_comercial": "04:00",
+
+    # Tempo entre avaliações
+    "intervalo_simulacao_segundos": 60,
+
+    # Estado de cada pátio no inicio da simulação
+    "patios": [
+        {
+            "nome": "Lapa",
+            "trilhos": [
+                ["M", "M"],
+                [],
+                [],
+                [],
+                []
+            ],
+            "trilho_max": 5,
+            "conectores_n": 1,
+        },
+        {
+            "nome": "Altino",
+            "trilhos": [
+                ["M", "M"],
+                [],
+                [],
+                [],
+                []
+            ],
+            "trilho_max": 5,
+            "conectores_n": 1,
+        },
+        {
+            "nome": "Calmon Viana",
+            "trilhos": [
+                ["M"],
+                [],
+                [],
+                [],
+                []
+            ],
+            "trilho_max": 5,
+            "conectores_n": 1,
+        },
+    ],
+
+    # Generalização das linhas
+    "linhas": [
+        {
+            "nome": "7+10",
+            "trens_n": 22 + 15,
+            "patio": "Lapa"
+        },
+        {
+            "nome": "8+9",
+            "trens_n": 19 + 2 + 17,
+            "patio": "Altino"
+        },
+        {
+            "nome": "11+12+13",
+            "trens_n": 28 + 19 + 4,
+            "patio": "Calmon Viana"
+        },
+    ],
+}
 ```
