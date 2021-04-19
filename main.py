@@ -20,7 +20,7 @@ config = {
     # Estado de cada pátio no inicio da simulação
     "patios": [
         {
-            "nome": "Lapa", # 37 + 2
+            "nome": "Lapa",
             "trilhos": [
                 ["M", "M"],
                 ["M"],
@@ -30,16 +30,12 @@ config = {
             "trilho_max": 10,
             "solicitacoes_de_acesso": [
                 {
+                    "inicio": "01:30",
+                    "termino": "03:30"
+                },
+                {
                     "inicio": "02:00",
                     "termino": "03:00"
-                },
-                {
-                    "inicio": "02:30",
-                    "termino": "03:30"
-                },
-                {
-                    "inicio": "02:30",
-                    "termino": "03:30"
                 }
             ]
         },
