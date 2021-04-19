@@ -177,10 +177,8 @@ Verificar se há solicitações agendadas para esse horário. Se houver, mandar 
 Para cada pátio:
     Para transporte na fila de entrada:
         Se fila reservada aos veículos de manutenção não está definida E espaços sobrando em uma fila é exatamente a quantidade de veículos de manutenção que sairão:
-        {
             Definir essa fila como a fila reservada aos veículos de manutenção
             Mover para a fila reservada todos os veículos de manutenção que sairão
-        }
         Se transporte for do tipo comercial:
             Colocar C em qualquer fila com as condições (se não funcionar, erro):
             - tem espaço 
