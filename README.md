@@ -160,17 +160,19 @@ Restrições:
 ### Algoritmo
 
 
-#### Inicialização
+```
+-- Inicialização
 
 Definir veículos de manutenção que sairão e colocá-los na mesma fila
 
 Cada pátio começará com fila reservada para veículos de manutenção indefinida
 
-### A cada iteração
 
-1. Colocar na fila de entrada os transportes vindo da Linha
+-- A cada iteração
 
-2. Verificar se há solicitações agendadas para esse horário. Se houver, mandar um veiculo de manutenção para a fila de saída
+Colocar na fila de entrada os transportes vindo da Linha
+
+Verificar se há solicitações agendadas para esse horário. Se houver, mandar um veiculo de manutenção para a fila de saída
 
 Para cada pátio:
     Para transporte na fila de entrada:
@@ -192,3 +194,4 @@ Para cada pátio:
 
 
 Mover transportes da fila de saída para a Linha
+```
